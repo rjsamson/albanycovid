@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@fullhuman/postcss-purgecss": "^2.3.0",
     "lodash": "^4.17.19",
     "moment": "^2.27.0",
     "moving-averages": "^4.0.5",

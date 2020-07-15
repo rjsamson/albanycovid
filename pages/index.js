@@ -1,37 +1,73 @@
 import Head from "next/head";
 import _ from "lodash";
-import {
-  ComposedChart,
-  Line,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  Label,
-} from "recharts";
-// import data from "../data/covid-data.json";
+import Chart from "../components/chart";
 
 export async function getStaticProps() {
-  // Call an external API endpoint to get posts.
-  // You can use any data fetching library
-  const res = await fetch(
-    "https://health.data.ny.gov/resource/xdss-u53e.json?county=Albany"
+  let res = await fetch(
+    "https://health.data.ny.gov/resource/xdss-u53e.json?$$app_token=sTenN2LHaAJS8ubppnFpPBWID&county=Albany"
   );
-  const data = await res.json();
+  const albany = await res.json();
 
-  // By returning { props: posts }, the Blog component
-  // will receive `posts` as a prop at build time
+  res = await fetch(
+    "https://health.data.ny.gov/resource/xdss-u53e.json?$$app_token=sTenN2LHaAJS8ubppnFpPBWID&county=Columbia"
+  );
+  const columbia = await res.json();
+
+  res = await fetch(
+    "https://health.data.ny.gov/resource/xdss-u53e.json?$$app_token=sTenN2LHaAJS8ubppnFpPBWID&county=Greene"
+  );
+  const greene = await res.json();
+
+  res = await fetch(
+    "https://health.data.ny.gov/resource/xdss-u53e.json?$$app_token=sTenN2LHaAJS8ubppnFpPBWID&county=Saratoga"
+  );
+  const saratoga = await res.json();
+
+  res = await fetch(
+    "https://health.data.ny.gov/resource/xdss-u53e.json?$$app_token=sTenN2LHaAJS8ubppnFpPBWID&county=Schenectady"
+  );
+  const schenectady = await res.json();
+
+  res = await fetch(
+    "https://health.data.ny.gov/resource/xdss-u53e.json?$$app_token=sTenN2LHaAJS8ubppnFpPBWID&county=Rensselaer"
+  );
+  const rensselaer = await res.json();
+
+  res = await fetch(
+    "https://health.data.ny.gov/resource/xdss-u53e.json?$$app_token=sTenN2LHaAJS8ubppnFpPBWID&county=Warren"
+  );
+  const warren = await res.json();
+
+  res = await fetch(
+    "https://health.data.ny.gov/resource/xdss-u53e.json?$$app_token=sTenN2LHaAJS8ubppnFpPBWID&county=Washington"
+  );
+  const washington = await res.json();
+
   return {
     props: {
-      data,
+      albany,
+      columbia,
+      greene,
+      saratoga,
+      schenectady,
+      rensselaer,
+      warren,
+      washington,
     },
   };
 }
 
-export default function Home({ data }) {
-  const albanyData = _.chain(data)
+export default function Home({
+  albany,
+  columbia,
+  greene,
+  saratoga,
+  schenectady,
+  rensselaer,
+  warren,
+  washington,
+}) {
+  const albanyData = _.chain(albany)
     .map((results) => {
       return {
         ...results,
@@ -42,11 +78,114 @@ export default function Home({ data }) {
         ).toFixed(2),
       };
     })
-    .filter({ county: "Albany" })
     .sortBy(["test_date"])
     // .takeRight(30)
     .value();
-  console.log(albanyData);
+
+  const columbiaData = _.chain(columbia)
+    .map((results) => {
+      return {
+        ...results,
+        positive_rate: results.new_positives / results.total_number_of_tests,
+        positive_rate_percentage: (
+          (results.new_positives / results.total_number_of_tests) *
+          100
+        ).toFixed(2),
+      };
+    })
+    .sortBy(["test_date"])
+    // .takeRight(30)
+    .value();
+
+  const greeneData = _.chain(greene)
+    .map((results) => {
+      return {
+        ...results,
+        positive_rate: results.new_positives / results.total_number_of_tests,
+        positive_rate_percentage: (
+          (results.new_positives / results.total_number_of_tests) *
+          100
+        ).toFixed(2),
+      };
+    })
+    .sortBy(["test_date"])
+    // .takeRight(30)
+    .value();
+
+  const saratogaData = _.chain(saratoga)
+    .map((results) => {
+      return {
+        ...results,
+        positive_rate: results.new_positives / results.total_number_of_tests,
+        positive_rate_percentage: (
+          (results.new_positives / results.total_number_of_tests) *
+          100
+        ).toFixed(2),
+      };
+    })
+    .sortBy(["test_date"])
+    // .takeRight(30)
+    .value();
+
+  const schenectadyData = _.chain(schenectady)
+    .map((results) => {
+      return {
+        ...results,
+        positive_rate: results.new_positives / results.total_number_of_tests,
+        positive_rate_percentage: (
+          (results.new_positives / results.total_number_of_tests) *
+          100
+        ).toFixed(2),
+      };
+    })
+    .sortBy(["test_date"])
+    // .takeRight(30)
+    .value();
+
+  const rensselaerData = _.chain(rensselaer)
+    .map((results) => {
+      return {
+        ...results,
+        positive_rate: results.new_positives / results.total_number_of_tests,
+        positive_rate_percentage: (
+          (results.new_positives / results.total_number_of_tests) *
+          100
+        ).toFixed(2),
+      };
+    })
+    .sortBy(["test_date"])
+    // .takeRight(30)
+    .value();
+
+  const warrenData = _.chain(warren)
+    .map((results) => {
+      return {
+        ...results,
+        positive_rate: results.new_positives / results.total_number_of_tests,
+        positive_rate_percentage: (
+          (results.new_positives / results.total_number_of_tests) *
+          100
+        ).toFixed(2),
+      };
+    })
+    .sortBy(["test_date"])
+    // .takeRight(30)
+    .value();
+
+  const washingtonData = _.chain(washington)
+    .map((results) => {
+      return {
+        ...results,
+        positive_rate: results.new_positives / results.total_number_of_tests,
+        positive_rate_percentage: (
+          (results.new_positives / results.total_number_of_tests) *
+          100
+        ).toFixed(2),
+      };
+    })
+    .sortBy(["test_date"])
+    // .takeRight(30)
+    .value();
 
   return (
     <div className="container">
@@ -56,90 +195,38 @@ export default function Home({ data }) {
       </Head>
 
       <main>
-        <div className="chart-row">
+        <div className="chart-col">
           <div>
             <span className="chart-title">Albany County</span>
-            <ComposedChart
-              width={500}
-              height={300}
-              data={albanyData}
-              margin={{
-                top: 5,
-                right: 30,
-                left: 20,
-                bottom: 5,
-              }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="test_date" label={false} tick={false} />
-              <YAxis yAxisId="left" />
-              <YAxis yAxisId="right" orientation="right" domain={[0, 25]} />
-              <Tooltip />
-              <Legend />
-              <Bar
-                stackId="a"
-                dataKey="new_positives"
-                fill="#8884d8"
-                label={false}
-                yAxisId="left"
-              />
-              <Bar
-                stackId="a"
-                dataKey="total_number_of_tests"
-                fill="#82ca9d"
-                label={false}
-                yAxisId="left"
-              />
-              <Line
-                type="monotone"
-                dataKey="positive_rate_percentage"
-                stroke="#ff7300"
-                yAxisId="right"
-                dot={false}
-              />
-            </ComposedChart>
+            <Chart data={albanyData} />
           </div>
           <div>
-            <span className="chart-title">Albany County</span>
-            <ComposedChart
-              width={500}
-              height={300}
-              data={albanyData}
-              margin={{
-                top: 5,
-                right: 30,
-                left: 20,
-                bottom: 5,
-              }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="test_date" label={false} tick={false} />
-              <YAxis yAxisId="left" />
-              <YAxis yAxisId="right" orientation="right" domain={[0, 25]} />
-              <Tooltip />
-              <Legend />
-              <Bar
-                stackId="a"
-                dataKey="new_positives"
-                fill="#8884d8"
-                label={false}
-                yAxisId="left"
-              />
-              <Bar
-                stackId="a"
-                dataKey="total_number_of_tests"
-                fill="#82ca9d"
-                label={false}
-                yAxisId="left"
-              />
-              <Line
-                type="monotone"
-                dataKey="positive_rate_percentage"
-                stroke="#ff7300"
-                yAxisId="right"
-                dot={false}
-              />
-            </ComposedChart>
+            <span className="chart-title">Columbia County</span>
+            <Chart data={columbiaData} />
+          </div>
+          <div>
+            <span className="chart-title">Green County</span>
+            <Chart data={greeneData} />
+          </div>
+          <div>
+            <span className="chart-title">Saratoga County</span>
+            <Chart data={saratogaData} />
+          </div>
+          <div>
+            <span className="chart-title">Schenectady County</span>
+            <Chart data={schenectadyData} />
+          </div>
+          <div>
+            <span className="chart-title">Rensselaer County</span>
+            <Chart data={rensselaerData} />
+          </div>
+          <div>
+            <span className="chart-title">Warren County</span>
+            <Chart data={warrenData} />
+          </div>
+          <div>
+            <span className="chart-title">Washington County</span>
+            <Chart data={washingtonData} />
           </div>
         </div>
       </main>
@@ -169,12 +256,19 @@ export default function Home({ data }) {
           flex-direction: row;
         }
 
+        .chart-row {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+        }
+
         .chart-title {
           flex: 1;
           display: flex;
           flex-direction: column;
           text-align: center;
           margin-bottom: 1rem;
+          margin-top: 3rem;
         }
 
         main {

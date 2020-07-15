@@ -256,10 +256,11 @@ export default function Home({
           flex-direction: row;
         }
 
-        .chart-row {
+        .chart-col {
           flex: 1;
           display: flex;
           flex-direction: column;
+          margin-left: 4rem;
         }
 
         .chart-title {

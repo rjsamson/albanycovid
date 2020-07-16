@@ -57,6 +57,23 @@ export async function getStaticProps() {
   };
 }
 
+const generateCalculatedData = (county, days = 365) => {
+  return _.chain(county)
+    .map((results) => {
+      return {
+        ...results,
+        positive_rate: results.new_positives / results.total_number_of_tests,
+        positive_rate_percentage: (
+          (results.new_positives / results.total_number_of_tests) *
+          100
+        ).toFixed(2),
+      };
+    })
+    .sortBy(["test_date"])
+    .takeRight(days)
+    .value();
+};
+
 export default function Home({
   albany,
   columbia,
@@ -67,125 +84,14 @@ export default function Home({
   warren,
   washington,
 }) {
-  const albanyData = _.chain(albany)
-    .map((results) => {
-      return {
-        ...results,
-        positive_rate: results.new_positives / results.total_number_of_tests,
-        positive_rate_percentage: (
-          (results.new_positives / results.total_number_of_tests) *
-          100
-        ).toFixed(2),
-      };
-    })
-    .sortBy(["test_date"])
-    // .takeRight(30)
-    .value();
-
-  const columbiaData = _.chain(columbia)
-    .map((results) => {
-      return {
-        ...results,
-        positive_rate: results.new_positives / results.total_number_of_tests,
-        positive_rate_percentage: (
-          (results.new_positives / results.total_number_of_tests) *
-          100
-        ).toFixed(2),
-      };
-    })
-    .sortBy(["test_date"])
-    // .takeRight(30)
-    .value();
-
-  const greeneData = _.chain(greene)
-    .map((results) => {
-      return {
-        ...results,
-        positive_rate: results.new_positives / results.total_number_of_tests,
-        positive_rate_percentage: (
-          (results.new_positives / results.total_number_of_tests) *
-          100
-        ).toFixed(2),
-      };
-    })
-    .sortBy(["test_date"])
-    // .takeRight(30)
-    .value();
-
-  const saratogaData = _.chain(saratoga)
-    .map((results) => {
-      return {
-        ...results,
-        positive_rate: results.new_positives / results.total_number_of_tests,
-        positive_rate_percentage: (
-          (results.new_positives / results.total_number_of_tests) *
-          100
-        ).toFixed(2),
-      };
-    })
-    .sortBy(["test_date"])
-    // .takeRight(30)
-    .value();
-
-  const schenectadyData = _.chain(schenectady)
-    .map((results) => {
-      return {
-        ...results,
-        positive_rate: results.new_positives / results.total_number_of_tests,
-        positive_rate_percentage: (
-          (results.new_positives / results.total_number_of_tests) *
-          100
-        ).toFixed(2),
-      };
-    })
-    .sortBy(["test_date"])
-    // .takeRight(30)
-    .value();
-
-  const rensselaerData = _.chain(rensselaer)
-    .map((results) => {
-      return {
-        ...results,
-        positive_rate: results.new_positives / results.total_number_of_tests,
-        positive_rate_percentage: (
-          (results.new_positives / results.total_number_of_tests) *
-          100
-        ).toFixed(2),
-      };
-    })
-    .sortBy(["test_date"])
-    // .takeRight(30)
-    .value();
-
-  const warrenData = _.chain(warren)
-    .map((results) => {
-      return {
-        ...results,
-        positive_rate: results.new_positives / results.total_number_of_tests,
-        positive_rate_percentage: (
-          (results.new_positives / results.total_number_of_tests) *
-          100
-        ).toFixed(2),
-      };
-    })
-    .sortBy(["test_date"])
-    // .takeRight(30)
-    .value();
-
-  const washingtonData = _.chain(washington)
-    .map((results) => {
-      return {
-        ...results,
-        positive_rate: results.new_positives / results.total_number_of_tests,
-        positive_rate_percentage: (
-          (results.new_positives / results.total_number_of_tests) *
-          100
-        ).toFixed(2),
-      };
-    })
-    .sortBy(["test_date"])
-    // .takeRight(30)
-    .value();
+  const albanyData = generateCalculatedData(albany);
+  const columbiaData = generateCalculatedData(columbia);
+  const greeneData = generateCalculatedData(greene);
+  const saratogaData = generateCalculatedData(saratoga);
+  const schenectadyData = generateCalculatedData(schenectady);
+  const rensselaerData = generateCalculatedData(rensselaer);
+  const warrenData = generateCalculatedData(warren);
+  const washingtonData = generateCalculatedData(washington);
 
   return (
     <div className="container">

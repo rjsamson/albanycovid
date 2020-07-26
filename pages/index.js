@@ -57,11 +57,45 @@ export async function getStaticProps() {
   };
 }
 
-const generateCalculatedData = (county, days = 365) => {
+const ALBANY_POP = 305506;
+const COLUMBIA_POP = 59461;
+const GREENE_POP = 47491;
+const SARATOGA_POP = 229863;
+const SCHENECTADY_POP = 155299;
+const RENSSELAER_POP = 158714;
+const WARREN_POP = 63944;
+const WASHINGTON_POP = 61204;
+const CAP_REGION_POP =
+  ALBANY_POP +
+  COLUMBIA_POP +
+  GREENE_POP +
+  SARATOGA_POP +
+  SCHENECTADY_POP +
+  RENSSELAER_POP +
+  WARREN_POP +
+  WASHINGTON_POP;
+
+const populations = {
+  albany: ALBANY_POP,
+  columbia: COLUMBIA_POP,
+  greene: GREENE_POP,
+  saratoga: SARATOGA_POP,
+  schenectady: SCHENECTADY_POP,
+  rensselaer: RENSSELAER_POP,
+  warren: WARREN_POP,
+  washington: WASHINGTON_POP,
+  cap_region: CAP_REGION_POP,
+};
+
+const generateCalculatedData = (county, countyName, days = 365) => {
   return _.chain(county)
     .map((results) => {
       return {
         ...results,
+        cases_per_100k: (
+          results.new_positives /
+          (populations[countyName] / 100000)
+        ).toFixed(2),
         positive_rate: results.new_positives / results.total_number_of_tests,
         positive_rate_percentage: (
           (results.new_positives / results.total_number_of_tests) *
@@ -84,14 +118,14 @@ export default function Home({
   warren,
   washington,
 }) {
-  const albanyData = generateCalculatedData(albany);
-  const columbiaData = generateCalculatedData(columbia);
-  const greeneData = generateCalculatedData(greene);
-  const saratogaData = generateCalculatedData(saratoga);
-  const schenectadyData = generateCalculatedData(schenectady);
-  const rensselaerData = generateCalculatedData(rensselaer);
-  const warrenData = generateCalculatedData(warren);
-  const washingtonData = generateCalculatedData(washington);
+  const albanyData = generateCalculatedData(albany, "albany");
+  const columbiaData = generateCalculatedData(columbia, "columbia");
+  const greeneData = generateCalculatedData(greene, "columbia");
+  const saratogaData = generateCalculatedData(saratoga, "saratoga");
+  const schenectadyData = generateCalculatedData(schenectady, "schenectady");
+  const rensselaerData = generateCalculatedData(rensselaer, "rensselaer");
+  const warrenData = generateCalculatedData(warren, "warren");
+  const washingtonData = generateCalculatedData(washington, "washington");
 
   return (
     <div className="container">

@@ -49,6 +49,13 @@ export default function Chart({ data }) {
         yAxisId="right"
         dot={false}
       />
+      <Line
+        type="monotone"
+        dataKey="cases_per_100k"
+        stroke="green"
+        yAxisId="right"
+        dot={false}
+      />
     </ComposedChart>
   );
 }

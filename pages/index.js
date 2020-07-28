@@ -1,5 +1,6 @@
 import Head from "next/head";
 import _ from "lodash";
+import moment from "moment";
 import Chart from "../components/chart";
 
 export async function getStaticProps() {
@@ -43,6 +44,8 @@ export async function getStaticProps() {
   );
   const washington = await res.json();
 
+  const timeString = moment().format("MM/DD/YYYY h:mma");
+
   return {
     props: {
       albany,
@@ -53,6 +56,7 @@ export async function getStaticProps() {
       rensselaer,
       warren,
       washington,
+      timeString,
     },
     revalidate: 180,
   };
@@ -118,6 +122,7 @@ export default function Home({
   rensselaer,
   warren,
   washington,
+  timeString,
 }) {
   const albanyData = generateCalculatedData(albany, "albany");
   const columbiaData = generateCalculatedData(columbia, "columbia");
@@ -137,6 +142,7 @@ export default function Home({
 
       <main>
         <div className="chart-col">
+          <span className="main-title">Last updated {timeString}</span>
           <div>
             <span className="chart-title">Albany County</span>
             <Chart data={albanyData} />
@@ -182,6 +188,14 @@ export default function Home({
       </footer>
 
       <style jsx>{`
+        .main-title {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          text-align: center;
+          margin-bottom: 1rem;
+          margin-top: 3rem;
+        }
         .container {
           min-height: 100vh;
           padding: 0 0.5rem;

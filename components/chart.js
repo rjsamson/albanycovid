@@ -23,7 +23,7 @@ export default function Chart({ data }) {
       }}
     >
       <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="test_date" label={false} tick={false} />
+      <XAxis dataKey="test_date" label="Date" tick={false} />
       <YAxis yAxisId="left" />
       <YAxis yAxisId="right" orientation="right" domain={[0, 50]} />
       <Tooltip />

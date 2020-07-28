@@ -54,6 +54,7 @@ export async function getStaticProps() {
       warren,
       washington,
     },
+    revalidate: 180,
   };
 }
 

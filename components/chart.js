@@ -9,6 +9,8 @@ import {
   Legend,
 } from "recharts";
 
+import moment from "moment";
+
 export default function Chart({ data }) {
   return (
     <ComposedChart
@@ -23,7 +25,10 @@ export default function Chart({ data }) {
       }}
     >
       <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="test_date" label="Date" tick={false} />
+      <XAxis
+        dataKey="test_date"
+        tickFormatter={(date) => moment(date).format("M/DD")}
+      />
       <YAxis yAxisId="left" />
       <YAxis yAxisId="right" orientation="right" domain={[0, 50]} />
       <Tooltip />

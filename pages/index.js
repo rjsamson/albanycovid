@@ -1,6 +1,6 @@
 import Head from "next/head";
 import _ from "lodash";
-import moment from "moment";
+import moment from "moment-timezone";
 import Chart from "../components/chart";
 
 export async function getStaticProps() {
@@ -44,7 +44,9 @@ export async function getStaticProps() {
   );
   const washington = await res.json();
 
-  const timeString = moment().format("MM/DD/YYYY h:mma");
+  const timeString = moment()
+    .tz("America/New_York")
+    .format("MM/DD/YYYY h:mma z");
 
   return {
     props: {

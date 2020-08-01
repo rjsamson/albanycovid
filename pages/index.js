@@ -142,7 +142,7 @@ export default function Home({
   washington,
   timeString,
 }) {
-  const [timeframe, setTimeframe] = useState(30);
+  const [timeframe, setTimeframe] = useState("365");
 
   const albanyData = _.takeRight(albany, timeframe);
   const columbiaData = _.takeRight(columbia, timeframe);
@@ -169,9 +169,6 @@ export default function Home({
           <span className="main-title">Last updated {timeString}</span>
           <div className="radios">
             <FormControl component="fieldset">
-              <FormLabel component="legend" className="radios">
-                Timeframe
-              </FormLabel>
               <RadioGroup
                 aria-label="timeframe"
                 name="timeframe"
@@ -181,15 +178,24 @@ export default function Home({
               >
                 <FormControlLabel
                   value="30"
-                  control={<Radio />}
+                  control={<Radio color="primary" />}
                   label="30 Days"
                 />
                 <FormControlLabel
                   value="60"
-                  control={<Radio />}
+                  control={<Radio color="primary" />}
                   label="60 Days"
                 />
-                <FormControlLabel value="365" control={<Radio />} label="All" />
+                <FormControlLabel
+                  value="90"
+                  control={<Radio color="primary" />}
+                  label="90 Days"
+                />
+                <FormControlLabel
+                  value="365"
+                  control={<Radio color="primary" />}
+                  label="All"
+                />
               </RadioGroup>
             </FormControl>
           </div>

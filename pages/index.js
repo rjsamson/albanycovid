@@ -1,68 +1,15 @@
 import Head from "next/head";
 import _ from "lodash";
 import moment from "moment-timezone";
+import {
+  FormControl,
+  FormLabel,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
+} from "@material-ui/core";
+import { useState } from "react";
 import Chart from "../components/chart";
-
-export async function getStaticProps() {
-  let res = await fetch(
-    "https://health.data.ny.gov/resource/xdss-u53e.json?$$app_token=sTenN2LHaAJS8ubppnFpPBWID&county=Albany"
-  );
-  const albany = await res.json();
-
-  res = await fetch(
-    "https://health.data.ny.gov/resource/xdss-u53e.json?$$app_token=sTenN2LHaAJS8ubppnFpPBWID&county=Columbia"
-  );
-  const columbia = await res.json();
-
-  res = await fetch(
-    "https://health.data.ny.gov/resource/xdss-u53e.json?$$app_token=sTenN2LHaAJS8ubppnFpPBWID&county=Greene"
-  );
-  const greene = await res.json();
-
-  res = await fetch(
-    "https://health.data.ny.gov/resource/xdss-u53e.json?$$app_token=sTenN2LHaAJS8ubppnFpPBWID&county=Saratoga"
-  );
-  const saratoga = await res.json();
-
-  res = await fetch(
-    "https://health.data.ny.gov/resource/xdss-u53e.json?$$app_token=sTenN2LHaAJS8ubppnFpPBWID&county=Schenectady"
-  );
-  const schenectady = await res.json();
-
-  res = await fetch(
-    "https://health.data.ny.gov/resource/xdss-u53e.json?$$app_token=sTenN2LHaAJS8ubppnFpPBWID&county=Rensselaer"
-  );
-  const rensselaer = await res.json();
-
-  res = await fetch(
-    "https://health.data.ny.gov/resource/xdss-u53e.json?$$app_token=sTenN2LHaAJS8ubppnFpPBWID&county=Warren"
-  );
-  const warren = await res.json();
-
-  res = await fetch(
-    "https://health.data.ny.gov/resource/xdss-u53e.json?$$app_token=sTenN2LHaAJS8ubppnFpPBWID&county=Washington"
-  );
-  const washington = await res.json();
-
-  const timeString = moment()
-    .tz("America/New_York")
-    .format("MM/DD/YYYY h:mma z");
-
-  return {
-    props: {
-      albany,
-      columbia,
-      greene,
-      saratoga,
-      schenectady,
-      rensselaer,
-      warren,
-      washington,
-      timeString,
-    },
-    revalidate: 180,
-  };
-}
 
 const ALBANY_POP = 305506;
 const COLUMBIA_POP = 59461;
@@ -94,7 +41,7 @@ const populations = {
   cap_region: CAP_REGION_POP,
 };
 
-const generateCalculatedData = (county, countyName, days = 365) => {
+const generateCalculatedData = (county, countyName) => {
   return _.chain(county)
     .map((results) => {
       return {
@@ -111,9 +58,78 @@ const generateCalculatedData = (county, countyName, days = 365) => {
       };
     })
     .sortBy(["test_date"])
-    .takeRight(days)
     .value();
 };
+
+export async function getStaticProps() {
+  let res = await fetch(
+    "https://health.data.ny.gov/resource/xdss-u53e.json?$$app_token=sTenN2LHaAJS8ubppnFpPBWID&county=Albany"
+  );
+  const albanyReq = await res.json();
+
+  res = await fetch(
+    "https://health.data.ny.gov/resource/xdss-u53e.json?$$app_token=sTenN2LHaAJS8ubppnFpPBWID&county=Columbia"
+  );
+  const columbiaReq = await res.json();
+
+  res = await fetch(
+    "https://health.data.ny.gov/resource/xdss-u53e.json?$$app_token=sTenN2LHaAJS8ubppnFpPBWID&county=Greene"
+  );
+  const greeneReq = await res.json();
+
+  res = await fetch(
+    "https://health.data.ny.gov/resource/xdss-u53e.json?$$app_token=sTenN2LHaAJS8ubppnFpPBWID&county=Saratoga"
+  );
+  const saratogaReq = await res.json();
+
+  res = await fetch(
+    "https://health.data.ny.gov/resource/xdss-u53e.json?$$app_token=sTenN2LHaAJS8ubppnFpPBWID&county=Schenectady"
+  );
+  const schenectadyReq = await res.json();
+
+  res = await fetch(
+    "https://health.data.ny.gov/resource/xdss-u53e.json?$$app_token=sTenN2LHaAJS8ubppnFpPBWID&county=Rensselaer"
+  );
+  const rensselaerReq = await res.json();
+
+  res = await fetch(
+    "https://health.data.ny.gov/resource/xdss-u53e.json?$$app_token=sTenN2LHaAJS8ubppnFpPBWID&county=Warren"
+  );
+  const warrenReq = await res.json();
+
+  res = await fetch(
+    "https://health.data.ny.gov/resource/xdss-u53e.json?$$app_token=sTenN2LHaAJS8ubppnFpPBWID&county=Washington"
+  );
+  const washingtonReq = await res.json();
+
+  const timeString = moment()
+    .tz("America/New_York")
+    .format("MM/DD/YYYY h:mma z");
+
+  const albany = generateCalculatedData(albanyReq, "albany");
+  const columbia = generateCalculatedData(columbiaReq, "columbia");
+  const greene = generateCalculatedData(greeneReq, "greene");
+  const saratoga = generateCalculatedData(saratogaReq, "saratoga");
+  const schenectady = generateCalculatedData(schenectadyReq, "schenectady");
+  const rensselaer = generateCalculatedData(rensselaerReq, "rensselaer");
+  const warren = generateCalculatedData(warrenReq, "warren");
+  const washington = generateCalculatedData(washingtonReq, "washington");
+
+  return {
+    props: {
+      albany,
+      columbia,
+      greene,
+      saratoga,
+      schenectady,
+      rensselaer,
+      warren,
+      washington,
+      timeString,
+    },
+    revalidate: 180,
+  };
+}
 
 export default function Home({
   albany,
@@ -126,14 +142,20 @@ export default function Home({
   washington,
   timeString,
 }) {
-  const albanyData = generateCalculatedData(albany, "albany");
-  const columbiaData = generateCalculatedData(columbia, "columbia");
-  const greeneData = generateCalculatedData(greene, "columbia");
-  const saratogaData = generateCalculatedData(saratoga, "saratoga");
-  const schenectadyData = generateCalculatedData(schenectady, "schenectady");
-  const rensselaerData = generateCalculatedData(rensselaer, "rensselaer");
-  const warrenData = generateCalculatedData(warren, "warren");
-  const washingtonData = generateCalculatedData(washington, "washington");
+  const [timeframe, setTimeframe] = useState("365");
+
+  const albanyData = _.takeRight(albany, timeframe);
+  const columbiaData = _.takeRight(columbia, timeframe);
+  const greeneData = _.takeRight(greene, timeframe);
+  const saratogaData = _.takeRight(saratoga, timeframe);
+  const schenectadyData = _.takeRight(schenectady, timeframe);
+  const rensselaerData = _.takeRight(rensselaer, timeframe);
+  const warrenData = _.takeRight(warren, timeframe);
+  const washingtonData = _.takeRight(washington, timeframe);
+
+  const handleTimeframeChange = (evt) => {
+    setTimeframe(evt.target.value);
+  };
 
   return (
     <div className="container">
@@ -145,6 +167,38 @@ export default function Home({
       <main>
         <div className="chart-col">
           <span className="main-title">Last updated {timeString}</span>
+          <div className="radios">
+            <FormControl component="fieldset">
+              <RadioGroup
+                aria-label="timeframe"
+                name="timeframe"
+                value={timeframe}
+                onChange={handleTimeframeChange}
+                row
+              >
+                <FormControlLabel
+                  value="30"
+                  control={<Radio color="primary" />}
+                  label="30 Days"
+                />
+                <FormControlLabel
+                  value="60"
+                  control={<Radio color="primary" />}
+                  label="60 Days"
+                />
+                <FormControlLabel
+                  value="90"
+                  control={<Radio color="primary" />}
+                  label="90 Days"
+                />
+                <FormControlLabel
+                  value="365"
+                  control={<Radio color="primary" />}
+                  label="All"
+                />
+              </RadioGroup>
+            </FormControl>
+          </div>
           <div>
             <span className="chart-title">Albany County</span>
             <Chart data={albanyData} />
@@ -197,6 +251,11 @@ export default function Home({
           text-align: center;
           margin-bottom: 1rem;
           margin-top: 3rem;
+        }
+        .radios {
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
         .container {
           min-height: 100vh;

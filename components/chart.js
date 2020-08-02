@@ -30,6 +30,7 @@ export default function Chart({ data }) {
       <Legend />
       <Bar
         stackId="a"
+        name="New Positives"
         dataKey="new_positives"
         fill="#8884d8"
         label={false}
@@ -37,6 +38,7 @@ export default function Chart({ data }) {
       />
       <Bar
         stackId="a"
+        name="Total Number of Tests"
         dataKey="total_number_of_tests"
         fill="#82ca9d"
         label={false}
@@ -44,6 +46,7 @@ export default function Chart({ data }) {
       />
       <Line
         type="monotone"
+        name="Positive Rate %"
         dataKey="positive_rate_percentage"
         stroke="#ff7300"
         yAxisId="right"
@@ -51,6 +54,7 @@ export default function Chart({ data }) {
       />
       <Line
         type="monotone"
+        name="Cases per 100k"
         dataKey="cases_per_100k"
         stroke="green"
         yAxisId="right"

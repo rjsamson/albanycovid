@@ -11,7 +11,7 @@ import {
 import { useState } from "react";
 import Chart from "../components/chart";
 import Page from "../components/page";
-import { generateCalculatedData } from "../lib/data";
+import { generateCalculatedData, regionalize } from "../lib/data";
 
 export async function getStaticProps() {
   let res = await fetch(
@@ -58,52 +58,41 @@ export async function getStaticProps() {
     .tz("America/New_York")
     .format("MM/DD/YYYY h:mma z");
 
-  const albany = generateCalculatedData(albanyReq, "albany");
-  const columbia = generateCalculatedData(columbiaReq, "columbia");
-  const greene = generateCalculatedData(greeneReq, "greene");
-  const saratoga = generateCalculatedData(saratogaReq, "saratoga");
-  const schenectady = generateCalculatedData(schenectadyReq, "schenectady");
-  const rensselaer = generateCalculatedData(rensselaerReq, "rensselaer");
-  const warren = generateCalculatedData(warrenReq, "warren");
-  const washington = generateCalculatedData(washingtonReq, "washington");
+  // const albany = generateCalculatedData(albanyReq, "albany");
+  // const columbia = generateCalculatedData(columbiaReq, "columbia");
+  // const greene = generateCalculatedData(greeneReq, "greene");
+  // const saratoga = generateCalculatedData(saratogaReq, "saratoga");
+  // const schenectady = generateCalculatedData(schenectadyReq, "schenectady");
+  // const rensselaer = generateCalculatedData(rensselaerReq, "rensselaer");
+  // const warren = generateCalculatedData(warrenReq, "warren");
+  // const washington = generateCalculatedData(washingtonReq, "washington");
+
+  const capitalRegionData = regionalize(
+    albanyReq,
+    columbiaReq,
+    greeneReq,
+    saratogaReq,
+    schenectadyReq,
+    rensselaerReq,
+    warrenReq,
+    washingtonReq
+  );
+
+  const capitalRegion = generateCalculatedData(capitalRegionData, "cap_region");
 
   return {
     props: {
-      albany,
-      columbia,
-      greene,
-      saratoga,
-      schenectady,
-      rensselaer,
-      warren,
-      washington,
+      capitalRegion,
       timeString,
     },
     revalidate: 180,
   };
 }
 
-export default function Home({
-  albany,
-  columbia,
-  greene,
-  saratoga,
-  schenectady,
-  rensselaer,
-  warren,
-  washington,
-  timeString,
-}) {
+export default function Region({ capitalRegion, timeString }) {
   const [timeframe, setTimeframe] = useState("365");
 
-  const albanyData = _.takeRight(albany, timeframe);
-  const columbiaData = _.takeRight(columbia, timeframe);
-  const greeneData = _.takeRight(greene, timeframe);
-  const saratogaData = _.takeRight(saratoga, timeframe);
-  const schenectadyData = _.takeRight(schenectady, timeframe);
-  const rensselaerData = _.takeRight(rensselaer, timeframe);
-  const warrenData = _.takeRight(warren, timeframe);
-  const washingtonData = _.takeRight(washington, timeframe);
+  const capitalRegionData = _.takeRight(capitalRegion, timeframe);
 
   const handleTimeframeChange = (evt) => {
     setTimeframe(evt.target.value);
@@ -111,12 +100,12 @@ export default function Home({
 
   return (
     <Page>
-      <div className="flex-col justify-center -mt-20">
-        <Head>
-          <title>Albany Covid Project - Counties</title>
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
+      <Head>
+        <title>Albany Covid Project - Capital Region</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
 
+      <div className="flex-col justify-center -mt-20">
         <main>
           <div className="chart-col">
             <span className="main-title">Last updated {timeString}</span>
@@ -153,36 +142,8 @@ export default function Home({
               </FormControl>
             </div>
             <div>
-              <span className="chart-title">Albany County</span>
-              <Chart data={albanyData} />
-            </div>
-            <div>
-              <span className="chart-title">Columbia County</span>
-              <Chart data={columbiaData} />
-            </div>
-            <div>
-              <span className="chart-title">Green County</span>
-              <Chart data={greeneData} />
-            </div>
-            <div>
-              <span className="chart-title">Saratoga County</span>
-              <Chart data={saratogaData} />
-            </div>
-            <div>
-              <span className="chart-title">Schenectady County</span>
-              <Chart data={schenectadyData} />
-            </div>
-            <div>
-              <span className="chart-title">Rensselaer County</span>
-              <Chart data={rensselaerData} />
-            </div>
-            <div>
-              <span className="chart-title">Warren County</span>
-              <Chart data={warrenData} />
-            </div>
-            <div>
-              <span className="chart-title">Washington County</span>
-              <Chart data={washingtonData} />
+              <span className="chart-title">Capital Region</span>
+              <Chart data={capitalRegionData} />
             </div>
           </div>
         </main>

@@ -111,14 +111,14 @@ export default function Home({
 
   return (
     <Page>
-      <div className="flex-col justify-center">
+      <div className="flex-col justify-center -mt-20">
         <Head>
           <title>Albany Covid Project - Counties</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
 
         <main>
-          <div className="flex-col">
+          <div className="chart-col">
             <span className="main-title">Last updated {timeString}</span>
             <div className="radios">
               <FormControl component="fieldset">

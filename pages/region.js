@@ -100,14 +100,14 @@ export default function Region({ capitalRegion, timeString }) {
 
   return (
     <Page>
-      <div className="flex-col justify-center">
-        <Head>
-          <title>Albany Covid Project - Capital Region</title>
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
+      <Head>
+        <title>Albany Covid Project - Capital Region</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
 
+      <div className="flex-col justify-center -mt-20">
         <main>
-          <div className="flex-col">
+          <div className="chart-col">
             <span className="main-title">Last updated {timeString}</span>
             <div className="radios">
               <FormControl component="fieldset">

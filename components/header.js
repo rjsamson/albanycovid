@@ -4,7 +4,7 @@ export default function Header() {
   return (
     <header>
       <div className="flex justify-center">
-        <span className="text-xl mt-10">Capital Region Covid Data</span>
+        <span className="text-xl mt-5">Capital Region Covid Data</span>
       </div>
       <nav className="flex justify-center">
         <div className="flex items-baseline justify-center flex-wrap mt-10">

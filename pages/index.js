@@ -111,12 +111,12 @@ export default function Home({
 
   return (
     <Page>
-      <div className="flex-col justify-center -mt-20">
-        <Head>
-          <title>Albany Covid Project - Counties</title>
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
+      <Head>
+        <title>Albany Covid Project - Counties</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
 
+      <div className="flex-col justify-center -mt-20">
         <main>
           <div className="chart-col">
             <span className="main-title">Last updated {timeString}</span>

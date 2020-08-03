@@ -118,7 +118,7 @@ export default function Home({
         </Head>
 
         <main>
-          <div className="chart-col">
+          <div className="flex-col">
             <span className="main-title">Last updated {timeString}</span>
             <div className="radios">
               <FormControl component="fieldset">

@@ -107,7 +107,7 @@ export default function Region({ capitalRegion, timeString }) {
         </Head>
 
         <main>
-          <div className="chart-col">
+          <div className="flex-col">
             <span className="main-title">Last updated {timeString}</span>
             <div className="radios">
               <FormControl component="fieldset">
@@ -141,7 +141,7 @@ export default function Region({ capitalRegion, timeString }) {
                 </RadioGroup>
               </FormControl>
             </div>
-            <div className="ml-10">
+            <div>
               <span className="chart-title">Capital Region</span>
               <Chart data={capitalRegionData} />
             </div>

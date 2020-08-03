@@ -2,7 +2,7 @@ import Header from "./header";
 
 export default function Page({ children }) {
   return (
-    <div>
+    <div className="flex-col justify-center">
       <Header />
       {children}
       <footer>

@@ -16,5 +16,6 @@ module.exports = {
       : undefined,
     ,
     "postcss-preset-env",
+    "autoprefixer",
   ],
 };

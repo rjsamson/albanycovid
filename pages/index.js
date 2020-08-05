@@ -118,7 +118,7 @@ export default function Home({
       <div>
         <div>
           <span className="main-title">Last updated {timeString}</span>
-          <div>
+          <div className="justify-center items-center align-middle">
             <FormControl component="fieldset">
               <RadioGroup
                 aria-label="timeframe"

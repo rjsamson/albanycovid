@@ -18,15 +18,15 @@ import {
 import { useState } from "react";
 
 export default function Chart({ data }) {
-  const [average, setAverage] = useState("none");
+  const [average, setAverage] = useState("7day");
   const [chartSource, setChartSource] = useState({
     positiveRate: {
-      dataKey: "positive_rate_percentage",
-      name: "Positive Rate Percentage",
+      dataKey: "positive_rate_percentage_7_day_avg",
+      name: "Positive Rate Percentage 7 Day Avg",
     },
     casesPer100k: {
-      dataKey: "cases_per_100k",
-      name: "Cases per 100k",
+      dataKey: "cases_per_100k_7_day_avg",
+      name: "Cases per 100k 7 Day Avg",
     },
   });
 

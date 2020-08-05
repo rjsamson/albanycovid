@@ -3,7 +3,6 @@ import _ from "lodash";
 import moment from "moment-timezone";
 import {
   FormControl,
-  FormLabel,
   RadioGroup,
   FormControlLabel,
   Radio,
@@ -116,76 +115,53 @@ export default function Home({
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="flex-col justify-center -mt-20">
-        <main>
-          <div className="chart-col">
-            <span className="main-title">Last updated {timeString}</span>
-            <div className="radios">
-              <FormControl component="fieldset">
-                <RadioGroup
-                  aria-label="timeframe"
-                  name="timeframe"
-                  value={timeframe}
-                  onChange={handleTimeframeChange}
-                  row
-                >
-                  <FormControlLabel
-                    value="30"
-                    control={<Radio color="primary" />}
-                    label="30 Days"
-                  />
-                  <FormControlLabel
-                    value="60"
-                    control={<Radio color="primary" />}
-                    label="60 Days"
-                  />
-                  <FormControlLabel
-                    value="90"
-                    control={<Radio color="primary" />}
-                    label="90 Days"
-                  />
-                  <FormControlLabel
-                    value="365"
-                    control={<Radio color="primary" />}
-                    label="All"
-                  />
-                </RadioGroup>
-              </FormControl>
-            </div>
-            <div>
-              <span className="chart-title">Albany County</span>
-              <Chart data={albanyData} />
-            </div>
-            <div>
-              <span className="chart-title">Columbia County</span>
-              <Chart data={columbiaData} />
-            </div>
-            <div>
-              <span className="chart-title">Green County</span>
-              <Chart data={greeneData} />
-            </div>
-            <div>
-              <span className="chart-title">Saratoga County</span>
-              <Chart data={saratogaData} />
-            </div>
-            <div>
-              <span className="chart-title">Schenectady County</span>
-              <Chart data={schenectadyData} />
-            </div>
-            <div>
-              <span className="chart-title">Rensselaer County</span>
-              <Chart data={rensselaerData} />
-            </div>
-            <div>
-              <span className="chart-title">Warren County</span>
-              <Chart data={warrenData} />
-            </div>
-            <div>
-              <span className="chart-title">Washington County</span>
-              <Chart data={washingtonData} />
-            </div>
+      <div>
+        <div>
+          <span className="main-title">Last updated {timeString}</span>
+          <div>
+            <FormControl component="fieldset">
+              <RadioGroup
+                aria-label="timeframe"
+                name="timeframe"
+                value={timeframe}
+                onChange={handleTimeframeChange}
+                row
+                className="justify-center items-center align-middle"
+              >
+                <FormControlLabel
+                  value="30"
+                  control={<Radio color="primary" />}
+                  label="30 Days"
+                />
+                <FormControlLabel
+                  value="60"
+                  control={<Radio color="primary" />}
+                  label="60 Days"
+                />
+                <FormControlLabel
+                  value="90"
+                  control={<Radio color="primary" />}
+                  label="90 Days"
+                />
+                <FormControlLabel
+                  value="365"
+                  control={<Radio color="primary" />}
+                  label="All"
+                />
+              </RadioGroup>
+            </FormControl>
           </div>
-        </main>
+        </div>
+        <div className="grid grid-cols-1 gap-2 lg:grid-cols-2">
+          <Chart data={albanyData} name="Albany County" />
+          <Chart data={columbiaData} name="Columbia County" />
+          <Chart data={greeneData} name="Greene County" />
+          <Chart data={saratogaData} name="Saratoga County" />
+          <Chart data={schenectadyData} name="Schenectady County" />
+          <Chart data={rensselaerData} name="Rensselaer County" />
+          <Chart data={warrenData} name="Warren County" />
+          <Chart data={washingtonData} name="Washington County" />
+        </div>
       </div>
     </Page>
   );

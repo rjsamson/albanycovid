@@ -7,7 +7,7 @@ export default function Page({ children }) {
         <Header />
         {children}
       </div>
-      <footer className="flex justify-center items-center border-t border-gray-500 w-screen">
+      <footer className="flex justify-center items-center border-t border-gray-500 w-screen mt-10">
         <span>© Capital Region Covid Project</span>
       </footer>
     </div>

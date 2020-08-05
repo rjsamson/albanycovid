@@ -105,48 +105,44 @@ export default function Region({ capitalRegion, timeString }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="flex-col justify-center -mt-20">
-        <main>
-          <div className="chart-col">
-            <span className="main-title">Last updated {timeString}</span>
-            <div className="radios">
-              <FormControl component="fieldset">
-                <RadioGroup
-                  aria-label="timeframe"
-                  name="timeframe"
-                  value={timeframe}
-                  onChange={handleTimeframeChange}
-                  row
-                >
-                  <FormControlLabel
-                    value="30"
-                    control={<Radio color="primary" />}
-                    label="30 Days"
-                  />
-                  <FormControlLabel
-                    value="60"
-                    control={<Radio color="primary" />}
-                    label="60 Days"
-                  />
-                  <FormControlLabel
-                    value="90"
-                    control={<Radio color="primary" />}
-                    label="90 Days"
-                  />
-                  <FormControlLabel
-                    value="365"
-                    control={<Radio color="primary" />}
-                    label="All"
-                  />
-                </RadioGroup>
-              </FormControl>
-            </div>
-            <div>
-              <span className="chart-title">Capital Region</span>
-              <Chart data={capitalRegionData} />
-            </div>
+      <div>
+        <div>
+          <span className="main-title">Last updated {timeString}</span>
+          <div className="radios">
+            <FormControl component="fieldset">
+              <RadioGroup
+                aria-label="timeframe"
+                name="timeframe"
+                value={timeframe}
+                onChange={handleTimeframeChange}
+                row
+                className="justify-center items-center align-middle"
+              >
+                <FormControlLabel
+                  value="30"
+                  control={<Radio color="primary" />}
+                  label="30 Days"
+                />
+                <FormControlLabel
+                  value="60"
+                  control={<Radio color="primary" />}
+                  label="60 Days"
+                />
+                <FormControlLabel
+                  value="90"
+                  control={<Radio color="primary" />}
+                  label="90 Days"
+                />
+                <FormControlLabel
+                  value="365"
+                  control={<Radio color="primary" />}
+                  label="All"
+                />
+              </RadioGroup>
+            </FormControl>
           </div>
-        </main>
+          <Chart data={capitalRegionData} name="Capital Region" />
+        </div>
       </div>
     </Page>
   );

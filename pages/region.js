@@ -108,7 +108,7 @@ export default function Region({ capitalRegion, timeString }) {
       <div>
         <div>
           <span className="main-title">Last updated {timeString}</span>
-          <div className="justify-center items-center align-middle">
+          <div className="flex justify-center items-center align-middle">
             <FormControl component="fieldset">
               <RadioGroup
                 aria-label="timeframe"

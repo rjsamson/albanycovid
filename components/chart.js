@@ -10,6 +10,8 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
+import moment from "moment-timezone";
+
 import {
   FormControl,
   RadioGroup,
@@ -112,7 +114,11 @@ export default function Chart({ data, name }) {
             <XAxis dataKey="test_date" label="Date" tick={false} />
             <YAxis yAxisId="left" />
             <YAxis yAxisId="right" orientation="right" domain={[0, 50]} />
-            <Tooltip />
+            <Tooltip
+              labelFormatter={(date) => {
+                return moment(date).tz("America/New_York").format("MM-DD-YYYY");
+              }}
+            />
             <Legend />
             <Bar
               stackId="a"

@@ -12,6 +12,8 @@ import {
 
 import moment from "moment-timezone";
 
+import _ from "lodash";
+
 import {
   FormControl,
   RadioGroup,
@@ -32,6 +34,14 @@ export default function Chart({ data, name }) {
       name: "Cases per 100k 7 Day Avg",
     },
   });
+
+  const per100k = Math.ceil(
+    _.max(
+      _.map(data, (item) => parseFloat(item[chartSource.casesPer100k.dataKey]))
+    )
+  );
+
+  const per100kLimit = per100k + Math.ceil(per100k * 0.34);
 
   const handleAverageChange = (evt) => {
     setAverage(evt.target.value);
@@ -113,7 +123,11 @@ export default function Chart({ data, name }) {
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="test_date" label="Date" tick={false} />
             <YAxis yAxisId="left" />
-            <YAxis yAxisId="right" orientation="right" domain={[0, 50]} />
+            <YAxis
+              yAxisId="right"
+              orientation="right"
+              domain={[0, per100kLimit]}
+            />
             <Tooltip
               labelFormatter={(date) => {
                 return moment(date).tz("America/New_York").format("MM-DD-YYYY");

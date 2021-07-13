@@ -90,7 +90,7 @@ export async function getStaticProps() {
 }
 
 export default function Region({ capitalRegion, timeString }) {
-  const [timeframe, setTimeframe] = useState("365");
+  const [timeframe, setTimeframe] = useState("30");
 
   const capitalRegionData = _.takeRight(capitalRegion, timeframe);
 

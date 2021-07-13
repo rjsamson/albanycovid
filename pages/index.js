@@ -93,7 +93,7 @@ export default function Home({
   washington,
   timeString,
 }) {
-  const [timeframe, setTimeframe] = useState("365");
+  const [timeframe, setTimeframe] = useState("30");
 
   const albanyData = _.takeRight(albany, timeframe);
   const columbiaData = _.takeRight(columbia, timeframe);

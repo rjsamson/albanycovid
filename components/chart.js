@@ -35,6 +35,14 @@ export default function Chart({ data, name }) {
     },
   });
 
+  const currentDay = data[data.length - 1];
+  const current100k7Day = currentDay.cases_per_100k_7_day_avg;
+  const cdc7Day = (current100k7Day * 7).toFixed(2);
+  let cdc7DayStyle = {};
+  if(cdc7Day >= 50.0) {
+    cdc7DayStyle = { color: 'red', fontWeight: 'bold' };
+  }
+
   const per100k = Math.ceil(
     _.max(
       _.map(data, (item) => parseFloat(item[chartSource.casesPer100k.dataKey]))
@@ -77,7 +85,8 @@ export default function Chart({ data, name }) {
 
   return (
     <div className="grid grid-cols-1 justify-center mt-10">
-      <span className="text-center">{name}</span>
+      <span className="text-center" style={cdc7DayStyle}>{name}</span>
+      <span className="text-center" style={cdc7DayStyle}>Current CDC 7 Day Cases per 100k: {cdc7Day}</span>
       <div className="grid grid-cols-1 justify-center">
         <FormControl component="fieldset">
           <RadioGroup

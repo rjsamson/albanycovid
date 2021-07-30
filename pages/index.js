@@ -117,7 +117,9 @@ export default function Home({
 
       <div>
         <div>
+          <span className="main-title-bold-red">Red bold title indicates substantial or greater transmission</span>
           <span className="main-title">Last updated {timeString}</span>
+
           <div className="flex justify-center items-center align-middle">
             <FormControl component="fieldset">
               <RadioGroup

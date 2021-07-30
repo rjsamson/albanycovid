@@ -9,8 +9,17 @@
   display: flex;
   flex-direction: column;
   text-align: center;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
+  margin-top: 1rem;
+}
+.main-title-bold-red {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
   margin-top: 3rem;
+  color: red;
+  font-weight: bold;
 }
 .radios {
   display: flex;

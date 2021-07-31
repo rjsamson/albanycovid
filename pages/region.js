@@ -81,10 +81,9 @@ export async function getStaticProps() {
   const capitalRegion = generateCalculatedData(capitalRegionData, "cap_region");
 
     
-  const currentDay = capitalRegion[capitalRegion.length - 1];
+  const currentDay = _.sortBy(capitalRegion, ['test_date'])[capitalRegion.length - 1];
 
   const updatedTimestring = moment(currentDay.test_date)
-    .tz("America/New_York")
     .format("MM/DD/YYYY");
 
   return {

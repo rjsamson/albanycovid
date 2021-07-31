@@ -66,7 +66,7 @@ export async function getStaticProps() {
   const warren = generateCalculatedData(warrenReq, "warren");
   const washington = generateCalculatedData(washingtonReq, "washington");
 
-  const currentDay = albany[albany.length - 1];
+  const currentDay = _.sortBy(albany, ['test_date'])[albany.length - 1];
 
   const updatedTimestring = moment(currentDay.test_date)
   .tz("America/New_York")

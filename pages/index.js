@@ -66,6 +66,12 @@ export async function getStaticProps() {
   const warren = generateCalculatedData(warrenReq, "warren");
   const washington = generateCalculatedData(washingtonReq, "washington");
 
+  const currentDay = albany[albany.length - 1];
+
+  const updatedTimestring = moment(currentDay.test_date)
+  .tz("America/New_York")
+  .format("MM/DD/YYYY");
+
   return {
     props: {
       albany,
@@ -77,6 +83,7 @@ export async function getStaticProps() {
       warren,
       washington,
       timeString,
+      updatedTimestring,
     },
     revalidate: 180,
   };
@@ -92,6 +99,7 @@ export default function Home({
   warren,
   washington,
   timeString,
+  updatedTimestring
 }) {
   const [timeframe, setTimeframe] = useState("30");
 
@@ -118,7 +126,8 @@ export default function Home({
       <div>
         <div>
           <span className="main-title-bold-red">Red bold title indicates substantial or greater transmission</span>
-          <span className="main-title">Last updated {timeString}</span>
+          <span className="main-title">Site last updated {timeString}</span>
+          <span className="main-title-2">Data as of {updatedTimestring}</span>
 
           <div className="flex justify-center items-center align-middle">
             <FormControl component="fieldset">

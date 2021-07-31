@@ -80,16 +80,24 @@ export async function getStaticProps() {
 
   const capitalRegion = generateCalculatedData(capitalRegionData, "cap_region");
 
+    
+  const currentDay = capitalRegion[capitalRegion.length - 1];
+
+  const updatedTimestring = moment(currentDay.test_date)
+    .tz("America/New_York")
+    .format("MM/DD/YYYY");
+
   return {
     props: {
       capitalRegion,
       timeString,
+      updatedTimestring,
     },
     revalidate: 180,
   };
 }
 
-export default function Region({ capitalRegion, timeString }) {
+export default function Region({ capitalRegion, timeString, updatedTimestring }) {
   const [timeframe, setTimeframe] = useState("30");
 
   const capitalRegionData = _.takeRight(capitalRegion, timeframe);
@@ -107,7 +115,9 @@ export default function Region({ capitalRegion, timeString }) {
 
       <div>
         <div>
+          <span className="main-title-bold-red">Red bold title indicates substantial or greater transmission</span>
           <span className="main-title">Last updated {timeString}</span>
+          <span className="main-title-2">Data as of {updatedTimestring}</span>
           <div className="flex justify-center items-center align-middle">
             <FormControl component="fieldset">
               <RadioGroup

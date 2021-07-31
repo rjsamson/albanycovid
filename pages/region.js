@@ -83,8 +83,7 @@ export async function getStaticProps() {
     
   const currentDay = _.sortBy(capitalRegion, ['test_date'])[capitalRegion.length - 1];
 
-  const updatedTimestring = moment(currentDay.test_date)
-    .format("MM/DD/YYYY");
+  const updatedTimestring = currentDay.test_date;
 
   return {
     props: {

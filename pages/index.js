@@ -68,9 +68,7 @@ export async function getStaticProps() {
 
   const currentDay = _.sortBy(albany, ['test_date'])[albany.length - 1];
 
-  const updatedTimestring = moment(currentDay.test_date)
-  .tz("America/New_York")
-  .format("MM/DD/YYYY");
+  const updatedTimestring = currentDay.test_date;
 
   return {
     props: {

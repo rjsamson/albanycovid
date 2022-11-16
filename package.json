@@ -14,7 +14,7 @@
     "moment": "^2.27.0",
     "moment-timezone": "^0.5.31",
     "moving-averages": "^4.0.5",
-    "next": "^9.5.0",
+    "next": "^13.0.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "recharts": "^1.8.5",
